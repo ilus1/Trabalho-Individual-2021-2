@@ -1,14 +1,28 @@
 version: "3.8"
 services:
   postgres:
-      image: postgres
-      volumes:
-        - ./data/db:/var/lib/postgresql/data
-      ports:
-        - "5432:5432"
-      env_file:
-        - postgres.env
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-      restart: always
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - postgres.env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/gces
+    links:
+      - postgres
+    depends_on:
+      - postgres
