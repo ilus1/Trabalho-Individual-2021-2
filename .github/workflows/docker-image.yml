@@ -18,9 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run tests
+      - name: Build
         working-directory: ./aplicacao
         run: docker-compose up -d 
-      - name: teste
+      - name: Testes
         working-directory: ./aplicacao
         run: docker exec app bash -c "rails db:reset; rspec"
+      - name: Lint
+        working-directory: ./aplicacao
+        run: docker exec app bash -c "gem install rubocop; rubocop -A --fail-level F"
