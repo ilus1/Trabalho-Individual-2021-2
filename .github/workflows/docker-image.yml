@@ -1,16 +1,26 @@
+# This is a basic workflow to help you get started with Actions
+
 name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main, develop ]
   pull_request:
-    branches: [main]
+    branches: [ main, develop ]
+
+  workflow_dispatch:
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
+
       - name: Run tests
         working-directory: ./aplicacao
-        run: docker-compose run app bash -c "rake db:reset; rspec"
+        run: docker-compose up -d 
+      - name: teste
+        working-directory: ./aplicacao
+        run: docker exec app bash -c "rails db:reset; rspec"
