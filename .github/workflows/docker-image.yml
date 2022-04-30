@@ -1,3 +1,5 @@
+name: CI
+
 on:
   push:
     branches: [main]
@@ -5,16 +7,10 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build app
-        run: docker-compose up -d app
-
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Run tests
+        working-directory: ./aplicacao
         run: docker-compose run app bash -c "rake db:reset; rspec"
