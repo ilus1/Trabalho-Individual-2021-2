@@ -27,4 +27,4 @@ jobs:
       with:
         context: "{{defaultContext}}:aplicacao"
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcestf:latest
+        tags: ${{ secrets.USER_DOCKER }}/gcesCD:latest
